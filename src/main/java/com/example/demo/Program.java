@@ -1,12 +1,13 @@
 package com.example.demo;
+import com.example.demo.model.Adventurer;
+import com.example.demo.model.enums.AdventurerType;
 
-import com.example.demo.Character.Adventurer;
-import com.example.demo.Character.CharacterType;
-
+import java.sql.Connection;
 import java.util.Scanner;
 
 public class Program {
     Scanner scanner = new Scanner(System.in);
+
 
     public void start(){
         System.out.println("Welcome in GuildBoard");
@@ -32,7 +33,7 @@ public class Program {
 
     private Adventurer createAdventurer(){
         String name;
-        CharacterType characterType;
+        AdventurerType adventurerType;
 
         while (true){
             System.out.println("Choose a name > ");
@@ -40,32 +41,32 @@ public class Program {
             if (!isValidName(name))continue;
 
             System.out.println("Choose a character type beetween > ");
-            for (CharacterType type : CharacterType.values()){
+            for (AdventurerType type : AdventurerType.values()){
                 System.out.println(type.getType());
             }
 
             String characterTypeStr = scanner.nextLine().trim().toUpperCase();
-            characterType = switch (characterTypeStr){
+            adventurerType = switch (characterTypeStr){
                 case "WARRIOR" :
-                    yield CharacterType.WARRIOR;
+                    yield AdventurerType.WARRIOR;
                 case "MAGE" :
-                    yield CharacterType.MAGE;
+                    yield AdventurerType.MAGE;
                 case "RANGER" :
-                    yield CharacterType.RANGER;
+                    yield AdventurerType.RANGER;
                 case "CLERIC" :
-                    yield CharacterType.CLERIC;
+                    yield AdventurerType.CLERIC;
                 default:
                     yield null;
             };
 
-            if(!isValidCharacterType(characterType))continue;
+            if(!isValidCharacterType(adventurerType))continue;
             break;
         }
         // Je crée l'objet en BDD comment ?
-        return new Adventurer(name, characterType);
+        return new Adventurer(name, adventurerType);
     }
 
     //TODO
     private boolean isValidName(String name){return true;}
-    private boolean isValidCharacterType(CharacterType characterType){return true;}
+    private boolean isValidCharacterType(AdventurerType adventurerType){return true;}
 }
