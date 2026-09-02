@@ -1,14 +1,15 @@
-package com.example.demo.Character;
+package com.example.demo.model;
+import com.example.demo.model.enums.AdventurerType;
 
 public class Adventurer {
     private String name;
-    private CharacterType type;
+    private AdventurerType type;
     private int level;
     private int xp;
     private int gold;
 
 
-    public Adventurer(String name, CharacterType type){
+    public Adventurer(String name, AdventurerType type){
         this.name = name;
         this.type = type;
         this.level = 1;
@@ -22,7 +23,7 @@ public class Adventurer {
         return this.name;
     }
 
-    public CharacterType getCharacterType(){
+    public AdventurerType getCharacterType(){
         return this.type;
     }
 }

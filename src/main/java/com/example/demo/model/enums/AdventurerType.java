@@ -1,13 +1,13 @@
-package com.example.demo.Character;
+package com.example.demo.model.enums;
 
-public enum CharacterType {
+public enum AdventurerType {
     WARRIOR("Warrior"),
     MAGE("Mage"),
     RANGER("Ranger"),
     CLERIC("Cleric");
 
     private final String type;
-    CharacterType(String type){
+    AdventurerType(String type){
         this.type =type;
     }
 
