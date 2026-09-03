@@ -2,7 +2,7 @@ package com.example.demo.model.enums;
 
 public enum Status {
     AVAILABLE("available"),
-    ON_GOING("onGoing"),
+    IN_PROGRESS("inProgress"),
     COMPLETED("completed");
 
     String status;
