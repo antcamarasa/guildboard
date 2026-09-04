@@ -35,14 +35,14 @@ public class Quest {
     @Column(name = "status", nullable = false, length = 50)
     private Status status;
 
-    public Quest(String title, String description, Difficulty difficulty, int requiredLevel, int xpReward, int goldReward, Status status){
+    public Quest(String title, String description, Difficulty difficulty, int requiredLevel, int xpReward, int goldReward){
         this.title = title;
         this.description = description;
         this.difficulty = difficulty;
         this.requiredLevel = requiredLevel;
         this.xpReward = xpReward;
         this.goldReward = goldReward;
-        this.status = status;
+        this.status = Status.AVAILABLE;
     }
 
     protected Quest(){}
