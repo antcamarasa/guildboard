@@ -14,7 +14,7 @@ public class Adventurer {
     @Column(name = "name", nullable = false, length = 50, unique = true)
     private String name;
 
-    @Column(name = "character_class", nullable = false)
+    @Column(name = "adventurer_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private AdventurerType characterType;
 
@@ -28,6 +28,7 @@ public class Adventurer {
     private int gold;
 
     // No arg protected constructor for hibernate : introspection
+    // don't protect from jackson who serialize and deserialize json.
     protected Adventurer(){}
 
     public Adventurer(String name, AdventurerType characterType){
@@ -65,6 +66,4 @@ public class Adventurer {
     public AdventurerType getCharacterType(){
         return this.characterType;
     }
-    // Not change character type during the game
-    //public void setCharacterType(AdventurerType adventurerType){this.characterType = adventurerType;}
 }
