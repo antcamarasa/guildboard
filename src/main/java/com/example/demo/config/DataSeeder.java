@@ -131,9 +131,9 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        assignmentRepository.deleteAll();
-        adventurerRepository.deleteAll();
-        questRepository.deleteAll();
+        assignmentRepository.deleteAllInBatch();
+        adventurerRepository.deleteAllInBatch();
+        questRepository.deleteAllInBatch();
 
         Map<String, Adventurer> adventurerMap = createAdventurer();
         Map<String, Quest> questMap = createQuest();
