@@ -1,4 +1,5 @@
 package com.example.demo.model;
+import com.example.demo.dto.adventurer.UpdateAdventurerRequest;
 import com.example.demo.model.enums.AdventurerType;
 import jakarta.persistence.*;
 
@@ -16,7 +17,7 @@ public class Adventurer {
 
     @Column(name = "adventurer_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private AdventurerType characterType;
+    private AdventurerType adventurerType;
 
     @Column(name = "level", nullable = false)
     private int level;
@@ -31,14 +32,22 @@ public class Adventurer {
     // don't protect from jackson who serialize and deserialize json.
     protected Adventurer(){}
 
-    public Adventurer(String name, AdventurerType characterType){
+    public Adventurer(String name, AdventurerType adventurerType){
         this.name = name;
-        this.characterType = characterType;
+        this.adventurerType = adventurerType;
         this.level = 1;
         this.xp = 0;
         this.gold = 0;
     }
 
+    //
+    public void applyUpdate(String name, AdventurerType adventurerType, int level, int xp, int gold){
+        this.setName(name);
+        this.setAdventurerType(adventurerType);
+        this.setLevel(level);
+        this.setXp(xp);
+        this.setGold(gold);
+    }
 
     //________________________________________________________________________________________
     // ___________________________________  Getter & Setter __________________________________
@@ -63,7 +72,12 @@ public class Adventurer {
     public void setGold(int gold){this.gold = gold;}
 
 
-    public AdventurerType getCharacterType(){
-        return this.characterType;
+    public AdventurerType getAdventurerType(){
+        return this.adventurerType;
     }
+    public void setAdventurerType(AdventurerType adventurerType){
+        this.adventurerType = adventurerType;
+    }
+
+
 }

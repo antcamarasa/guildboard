@@ -1,15 +1,20 @@
 package com.example.demo.service;
 
+import com.example.demo.constant.Constant;
 import com.example.demo.dto.adventurer.AdventurerResponse;
 import com.example.demo.dto.adventurer.CreateAdventurerRequest;
+import com.example.demo.dto.adventurer.UpdateAdventurerRequest;
+import com.example.demo.exception.AdventurerNotFoundException;
 import com.example.demo.exception.DuplicateNameException;
 import com.example.demo.model.Adventurer;
 import com.example.demo.repository.AdventurerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
+//
 @Service
 public class AdventurerService {
         private final AdventurerRepository adventurerRepository;
@@ -20,22 +25,56 @@ public class AdventurerService {
         }
 
         @Transactional(readOnly = true)
-        public List<Adventurer> findAll(){
-            return adventurerRepository.findAll();
+        public AdventurerResponse findById(Integer id){
+            Adventurer adventurer = adventurerRepository
+                    .findById(id)
+                    .orElseThrow(() -> new AdventurerNotFoundException(Constant.ADVENTURER_NOT_FIND_IN_DB.getMessage()));
+
+            return AdventurerResponse.from(adventurer);
+        }
+
+        @Transactional(readOnly = true)
+        public List<AdventurerResponse> findAll(){
+            var adventurers = adventurerRepository.findAll();
+
+            List<AdventurerResponse> adventurerResponseList = new ArrayList<>();
+            for(Adventurer adventurer : adventurers){
+                adventurerResponseList.add(AdventurerResponse.from(adventurer));
+            }
+            return adventurerResponseList;
         }
 
         @Transactional
         public AdventurerResponse save(CreateAdventurerRequest adventurerRequest){
-            // 1. Vérifications du dto
-
-            // 2. Si valide -> 1. Je crée une instance métier(un aventurier) | 2. je le partage a repository pour qu'il le save. | 3. je récupére un nouvelle objet. (ici bizarre quand même en gros j'aimerais bien voir ce qu'il change a part le champs id qui est valide)
-            // ensuite, je crée un dto de réponse et je le retourne au controller pour qu'il le return au client.
-            //              -> Sinon je crée un erreur et je la retourne.
             if(!adventurerRepository.existsByName(adventurerRequest.getName())){
                 Adventurer adventurer = new Adventurer(adventurerRequest.getName(), adventurerRequest.getCharacterType());
                 adventurer = adventurerRepository.save(adventurer);
-                return new AdventurerResponse(adventurer.getId(), adventurer.getName(), adventurer.getCharacterType(), adventurer.getGold(), adventurer.getXp(), adventurer.getLevel());
+                return new AdventurerResponse(adventurer.getId(), adventurer.getName(), adventurer.getAdventurerType(), adventurer.getGold(), adventurer.getXp(), adventurer.getLevel());
             }
-            throw  new DuplicateNameException("Name already exists!, try another one.");
+            throw  new DuplicateNameException(Constant.NAME_ALREADY_EXIST_IN_DB.getMessage());
+        }
+
+        @Transactional
+        public void delete(Integer id){
+            // TODO : A vérifier => On ne pourra supprimer un aventurier qui a un Assignment en cours.
+            Adventurer adventurer = findAventurer(id);
+            adventurerRepository.delete(adventurer);
+        }
+
+        @Transactional
+        public AdventurerResponse update(Integer id, UpdateAdventurerRequest updateAdventurerRequest){
+            Adventurer adventurer = adventurerRepository.findById(id).orElseThrow(
+                    () -> new AdventurerNotFoundException(Constant.ADVENTURER_NOT_FIND_IN_DB.getMessage())
+            );
+            adventurer.applyUpdate(updateAdventurerRequest.name(), updateAdventurerRequest.adventurerType(), updateAdventurerRequest.level(), updateAdventurerRequest.xp(), updateAdventurerRequest.gold());
+            return AdventurerResponse.from(adventurer);
+        }
+
+
+        // _____________________ Helper Method _____________________
+        public Adventurer findAventurer(Integer id){
+            return adventurerRepository.findById(id).orElseThrow(
+                    () -> new AdventurerNotFoundException(Constant.ADVENTURER_NOT_FIND_IN_DB.getMessage())
+            );
         }
     }
