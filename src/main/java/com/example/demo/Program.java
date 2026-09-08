@@ -2,7 +2,6 @@ package com.example.demo;
 import com.example.demo.model.Adventurer;
 import com.example.demo.model.enums.AdventurerType;
 
-import java.sql.Connection;
 import java.util.Scanner;
 
 public class Program {
@@ -23,7 +22,7 @@ public class Program {
 
             if(playerChoice.equals("1")){
                 adventurer = createAdventurer();
-                System.out.println("You create a adenturer : " + adventurer.getName() + " Type : " + adventurer.getCharacterType());
+                System.out.println("You create a adenturer : " + adventurer.getName() + " Type : " + adventurer.getAdventurerType());
                 break;
             } else if(playerChoice.equals("2")){
                 return;
