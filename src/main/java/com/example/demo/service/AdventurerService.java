@@ -4,10 +4,11 @@ import com.example.demo.constant.Constant;
 import com.example.demo.dto.adventurer.AdventurerResponse;
 import com.example.demo.dto.adventurer.CreateAdventurerRequest;
 import com.example.demo.dto.adventurer.UpdateAdventurerRequest;
-import com.example.demo.exception.AdventurerNotFoundException;
-import com.example.demo.exception.DuplicateNameException;
+import com.example.demo.exception.Adventurer.AdventurerNotFoundException;
+import com.example.demo.exception.Adventurer.DuplicateNameException;
 import com.example.demo.model.Adventurer;
 import com.example.demo.repository.AdventurerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ import java.util.List;
 public class AdventurerService {
         private final AdventurerRepository adventurerRepository;
 
-        // Pas besoin du auto wired. un seul constructeur => injection de dépendance par default avec annotation spring
+        @Autowired
         public AdventurerService(AdventurerRepository adventurerRepository){
             this.adventurerRepository = adventurerRepository;
         }
@@ -49,7 +50,7 @@ public class AdventurerService {
             if(!adventurerRepository.existsByName(adventurerRequest.getName())){
                 Adventurer adventurer = new Adventurer(adventurerRequest.getName(), adventurerRequest.getCharacterType());
                 adventurer = adventurerRepository.save(adventurer);
-                return new AdventurerResponse(adventurer.getId(), adventurer.getName(), adventurer.getAdventurerType(), adventurer.getGold(), adventurer.getXp(), adventurer.getLevel());
+                return AdventurerResponse.from(adventurer);
             }
             throw  new DuplicateNameException(Constant.NAME_ALREADY_EXIST_IN_DB.getMessage());
         }
