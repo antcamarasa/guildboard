@@ -10,4 +10,6 @@ public record UpdateAdventurerRequest(
         @NotNull AdventurerType adventurerType,
         @NotNull @Min(0) Integer level,
         @NotNull @Min(0) Integer xp,
-        @NotNull @Min(0) Integer gold) {}
+        @NotNull @Min(0) Integer gold) {
+
+}

@@ -46,6 +46,18 @@ public class Quest {
     }
 
     protected Quest(){}
+
+    //________________________________________________________________________________________
+    // ______________________________________  Methode _______________________________________
+    public void applyUpdate(String title, String description, Difficulty difficulty, int requiredLevel, int xpReward, int goldReward){
+        setTitle(title);
+        setDescription(description);
+        setDifficulty(difficulty);
+        setRequiredLevel(requiredLevel);
+        setXpReward(xpReward);
+        setGoldReward(goldReward);
+    }
+
     //________________________________________________________________________________________
     // ___________________________________  Getter & Setter __________________________________
     public Integer getId(){
@@ -53,29 +65,23 @@ public class Quest {
     }
 
     public String getTitle(){return this.title;}
-    // TODO => Protect data before set
     public void setTitle(String title){
         this.title = title;
     }
 
     public String getDescription(){return this.description;}
-    // TODO => Protect data before set
     public void setDescription(String description){this.description = description;}
 
     public Difficulty getDifficulty(){return this.difficulty;}
-    // TODO => Protect data before set
     public void setDifficulty(Difficulty difficulty){this.difficulty = difficulty;}
 
     public int getRequiredLevel(){return this.requiredLevel;}
-    // TODO => Protect data before set
     public void setRequiredLevel(int requiredLevel){this.requiredLevel = requiredLevel;}
 
     public int getXpReward(){return this.xpReward;}
-    // TODO => Protect data before set
     public void setXpReward(int xpReward){this.xpReward = xpReward;}
 
     public int getGoldReward(){return this.goldReward;}
-    // TODO => Protect data before set
     public void setGoldReward(int goldReward){this.goldReward = goldReward;}
 
     public Status getStatus() {

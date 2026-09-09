@@ -3,10 +3,9 @@ package com.example.demo.controller;
 import com.example.demo.dto.adventurer.AdventurerResponse;
 import com.example.demo.dto.adventurer.CreateAdventurerRequest;
 import com.example.demo.dto.adventurer.UpdateAdventurerRequest;
-import com.example.demo.model.Adventurer;
 import com.example.demo.service.AdventurerService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +15,7 @@ import java.util.List;
 public class AdventurerController {
     private final AdventurerService adventurerService;
 
+    @Autowired
     public AdventurerController(AdventurerService adventurerService){
         this.adventurerService = adventurerService;
     }
