@@ -1,0 +1,55 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  background: rgba(0, 0, 0, 0.5);  /*  transparent  */
+  backdrop-filter: blur(6px);       /* effet verre givré */
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-family: 'Grenze Gotisch', serif;
+  font-size: 1.4rem;
+  color: #fff;
+  letter-spacing: 1px;
+  margin-right: auto;
+}
+
+.nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav a {
+  color: #9ca3af;
+  text-decoration: none;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.nav a:hover {
+  color: #fff;
+}
+
+.nav a.active {
+  background: #fff;
+  color: #111;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+}
