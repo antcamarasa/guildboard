@@ -4,12 +4,13 @@ import com.example.demo.dto.quest.request.CreateQuestRequest;
 import com.example.demo.dto.quest.request.UpdateQuestRequest;
 import com.example.demo.dto.quest.response.QuestResponse;
 import com.example.demo.model.Quest;
+import com.example.demo.model.enums.Difficulty;
+import com.example.demo.model.enums.Status;
+import com.example.demo.repository.QuestRepository;
 import com.example.demo.service.QuestService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,16 +23,12 @@ public class QuestController {
     }
 
     @GetMapping("/quests")
-    public List<QuestResponse> findAll(){
-        List<QuestResponse> questRepons = new ArrayList<>();
-        List<Quest> questsList = questService.findAll();
-
-        for(Quest quest : questsList){
-            questRepons.add(QuestResponse.from(quest));
-        }
-
-        return questRepons;
+    public List<QuestResponse> findAll(@RequestParam(required = false) Status status, @RequestParam(required = false)Difficulty difficulty){
+        return questService.findAll(status, difficulty);
     }
+
+    // ________________________ fin des filtres ________________________
+
 
     @GetMapping("/quests/{id}")
     public QuestResponse findById(@PathVariable Integer id){
@@ -46,16 +43,22 @@ public class QuestController {
         return questService.save(createQuestRequest);
     }
 
+    // TODO /api/quests/{id}/assignment
+    // Création d'un assignment. Mais il faut adventurer dans le corps du json request body ?
+    // Assigne un aventurier (corps : {"adventurerId": ... }), applique RG1 et RG2
+
+
+
+    // Modification interdite si status est IN_PROGRESS.
+    // TODO : modification interdite si IN_PROGRESS
     @PutMapping("quests/{id}")
     public QuestResponse update(@PathVariable Integer id,
-                                // Valid vérifie, la validation d'entrée dans UpdateQuestRequest.
-                                // Request body => Parse le body.
                                 @Valid @RequestBody UpdateQuestRequest updateQuestRequest){
         return questService.update(id, updateQuestRequest);
     }
 
-
     //DELETE /api/quests/{id} suppression (interdite si IN_PROGRESS)
+    // TODO : suppression interdite si IN_PROGRESS
     @DeleteMapping("quests/{id}")
     public void delete(@PathVariable Integer id){
         questService.delete(id);

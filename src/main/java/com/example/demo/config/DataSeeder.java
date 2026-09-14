@@ -50,6 +50,12 @@ public class DataSeeder implements CommandLineRunner {
         doran.setGold(75);
         adventurerMap.put("Doran", doran);
 
+        Adventurer adventurerTestForAssignment = new Adventurer("adventurer Test", AdventurerType.WARRIOR);
+        adventurerTestForAssignment.setLevel(1);
+        adventurerTestForAssignment.setXp(45);
+        adventurerTestForAssignment.setGold(85);
+        adventurerMap.put("adventurerTest", adventurerTestForAssignment);
+
         return adventurerMap;
     }
     public Map<String, Quest> createQuest(){
@@ -57,31 +63,31 @@ public class DataSeeder implements CommandLineRunner {
 
         // Rats in the Cellar	The innkeeper swears they are the size of dogs. They are not, but they do bite.	EASY	1	20	50	COMPLETED
         Quest ratsInTheCellar = new Quest("Rats in the Cellar", "The innkeeper swears they are the size of dogs. They are not, but they do bite.", Difficulty.EASY, 1, 50, 20);
-        ratsInTheCellar.setStatus(Status.COMPLETED);
+        ratsInTheCellar.setStatus(Status.AVAILABLE);
         questMap.put("ratsInTheCellar", ratsInTheCellar);
 
         Quest theMissingGoat = new Quest("The Missing Goat", "Old Merrick lost his prize goat near the treeline. He is offering more than it is worth.", Difficulty.EASY, 1, 40, 15);
-        theMissingGoat.setStatus(Status.COMPLETED);
+        theMissingGoat.setStatus(Status.AVAILABLE);
         questMap.put("theMissingGoat", theMissingGoat);
 
         Quest herbsForTheHealer = new Quest("Herbs for the Healer", "Gather bloodroot from the marsh. Watch your footing, the ground lies.", Difficulty.EASY, 1, 60, 25);
-        herbsForTheHealer.setStatus(Status.COMPLETED);
+        herbsForTheHealer.setStatus(Status.AVAILABLE);
         questMap.put("herbsForTheHealer", herbsForTheHealer);
 
         Quest theBrokenMillstone = new Quest("The Broken Millstone", "Bandits smashed the mill and took the miller's daughter's dowry. Get it back.", Difficulty.MEDIUM, 2, 120, 80);
-        theBrokenMillstone.setStatus(Status.COMPLETED);
+        theBrokenMillstone.setStatus(Status.AVAILABLE);
         questMap.put("theBrokenMillstone", theBrokenMillstone);
 
         Quest smokeOverGreyFen = new Quest("Smoke over Greyfen", "A farmstead burned in the night and nobody will say why. Find out.", Difficulty.MEDIUM, 2, 140, 90);
-        smokeOverGreyFen.setStatus(Status.COMPLETED);
+        smokeOverGreyFen.setStatus(Status.AVAILABLE);
         questMap.put("smokeOverGreyFen", smokeOverGreyFen);
 
         Quest wolvesAtGarrowmere = new Quest("Wolves at Harrowmere", "The pack has grown bold enough to take a shepherd. They will take another.", Difficulty.MEDIUM, 3, 160, 100);
-        wolvesAtGarrowmere.setStatus(Status.COMPLETED);
+        wolvesAtGarrowmere.setStatus(Status.AVAILABLE);
         questMap.put("wolvesAtGarrowmere", wolvesAtGarrowmere);
 
         Quest theTolKeepersDebt = new Quest("The Tollkeeper's Debt", "He has not paid the guild in three seasons. Collect, politely if possible.", Difficulty.MEDIUM, 2, 110, 75);
-        theTolKeepersDebt.setStatus(Status.COMPLETED);
+        theTolKeepersDebt.setStatus(Status.AVAILABLE);
         questMap.put("theTolKeepersDebt", theTolKeepersDebt);
 
         Quest theSunkenChapel = new Quest("The Sunken Chapel", "Something in the flooded crypt is keeping the water from draining.", Difficulty.HARD, 3, 280, 200);

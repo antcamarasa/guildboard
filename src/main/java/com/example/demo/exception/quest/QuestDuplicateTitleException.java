@@ -1,4 +1,4 @@
-package com.example.demo.exception.Quest;
+package com.example.demo.exception.quest;
 
 public class QuestDuplicateTitleException extends RuntimeException{
 
