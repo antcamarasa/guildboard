@@ -1,5 +1,4 @@
 package com.example.demo.model;
-import com.example.demo.dto.adventurer.UpdateAdventurerRequest;
 import com.example.demo.model.enums.AdventurerType;
 import jakarta.persistence.*;
 
@@ -40,13 +39,31 @@ public class Adventurer {
         this.gold = 0;
     }
 
-    //
+    //**************************************** Methode *********************************************
+    // _____________________________________________________________________________________________
     public void applyUpdate(String name, AdventurerType adventurerType, int level, int xp, int gold){
         this.setName(name);
         this.setAdventurerType(adventurerType);
         this.setLevel(level);
         this.setXp(xp);
         this.setGold(gold);
+    }
+
+    public void earnRewards(int earnXp, int earnGold){
+        this.xp   += earnXp;
+        this.gold += earnGold;
+        increaseLevel();
+    }
+
+    public void increaseLevel(){
+        while (this.xp >= 100){
+            this.level++;
+            this.xp -= 100;
+        }
+    }
+
+    public boolean hasReachedLevel(int questRequiredLevel){
+        return this.level >= questRequiredLevel;
     }
 
     //________________________________________________________________________________________

@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import com.example.demo.constant.Constant;
+import com.example.demo.exception.assignment.AdventurerLevelInsuffisant;
+import com.example.demo.exception.assignment.QuestNotAvailable;
 import com.example.demo.model.enums.Difficulty;
 import com.example.demo.model.enums.Status;
 import jakarta.persistence.*;
@@ -58,6 +61,31 @@ public class Quest {
         setGoldReward(goldReward);
     }
 
+    public boolean isAvailable(){
+        return this.status == Status.AVAILABLE;
+    }
+
+    public void updateStatus(){
+        if(this.status == Status.AVAILABLE){
+            this.status = Status.IN_PROGRESS;
+            return;
+        }
+        this.status = Status.AVAILABLE;
+    }
+
+    public void assignTo(Integer adventurerLevel){
+        if(!isAvailable()){
+            throw new QuestNotAvailable(Constant.QUEST_NOT_AVAILABLE.getMessage());
+        }
+        if(!hasReachLevel(adventurerLevel)){
+            throw new AdventurerLevelInsuffisant(Constant.ADVENTURER_LEVEL_INSUFFISANT.getMessage());
+        }
+        this.status = Status.IN_PROGRESS;
+    }
+
+    public boolean hasReachLevel(Integer adventurerLevel){
+        return adventurerLevel >= this.requiredLevel;
+    }
     //________________________________________________________________________________________
     // ___________________________________  Getter & Setter __________________________________
     public Integer getId(){

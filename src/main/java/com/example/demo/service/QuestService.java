@@ -4,13 +4,18 @@ import com.example.demo.constant.Constant;
 import com.example.demo.dto.quest.request.CreateQuestRequest;
 import com.example.demo.dto.quest.request.UpdateQuestRequest;
 import com.example.demo.dto.quest.response.QuestResponse;
-import com.example.demo.exception.Quest.QuestDuplicateTitleException;
-import com.example.demo.exception.Quest.QuestNotFoundException;
+import com.example.demo.exception.quest.NoQuestInDataBase;
+import com.example.demo.exception.quest.QuestDuplicateTitleException;
+import com.example.demo.exception.quest.QuestNotFoundException;
 import com.example.demo.model.Quest;
+import com.example.demo.model.enums.Difficulty;
+import com.example.demo.model.enums.Status;
 import com.example.demo.repository.QuestRepository;
+import com.example.demo.util.RepositoryUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,25 +28,47 @@ public class QuestService {
         this.questRepository = questRepository;
     }
 
-    // Methode
+
+
     @Transactional(readOnly = true)
-    public List<Quest> findAll(){
-        return questRepository.findAll();
+    public List<QuestResponse> findAll(Status status, Difficulty difficulty) {
+        List<Quest> quests;
+        if(status == null && difficulty == null){
+            quests = questRepository.findAll();
+        } else if(status != null && difficulty == null) {
+            quests = questRepository.filterByStatus(status);
+        } else if (status == null && difficulty != null) {
+            quests = questRepository.filterByDifficulty(difficulty);
+        } else{
+            quests = questRepository.filterByStatusAndDifficulty(status, difficulty);
+        }
+
+        List<QuestResponse> questResponses = new ArrayList<>();
+        for(Quest quest : quests){
+            questResponses.add(QuestResponse.from(quest));
+        }
+        return questResponses;
     }
 
     @Transactional(readOnly = true)
     public Quest findById(Integer id){
-        return questRepository.findById(id).orElseThrow(() -> new QuestNotFoundException(Constant.QUEST_NOT_FIND_IN_DB.getMessage()));
+        return RepositoryUtil.getOrThrow(
+                questRepository,
+                id,
+                () -> new QuestNotFoundException(Constant.QUEST_NOT_FIND_IN_DB.getMessage()
+                )
+        );
     }
 
     @Transactional
     public QuestResponse update(Integer id, UpdateQuestRequest updateQuestRequest){
-        Quest quest = questRepository.findById(id)
-                .orElseThrow(
-                        () -> new QuestNotFoundException(Constant.QUEST_NOT_FIND_IN_DB.getMessage())
-                );
+        Quest quest = RepositoryUtil.getOrThrow(
+                questRepository,
+                id,
+                () -> new QuestNotFoundException(Constant.QUEST_NOT_FIND_IN_DB.getMessage()
+                )
+        );
 
-        // Why we don't valid on Database ? why we only update instance and by magical this change in DB ?
         quest.applyUpdate(
                 updateQuestRequest.title(),
                 updateQuestRequest.description(),
