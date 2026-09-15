@@ -4,8 +4,10 @@ import com.example.demo.constant.Constant;
 import com.example.demo.dto.quest.request.CreateQuestRequest;
 import com.example.demo.dto.quest.request.UpdateQuestRequest;
 import com.example.demo.dto.quest.response.QuestResponse;
+import com.example.demo.exception.assignment.QuestNotAvailable;
 import com.example.demo.exception.quest.NoQuestInDataBase;
 import com.example.demo.exception.quest.QuestDuplicateTitleException;
+import com.example.demo.exception.quest.QuestNotAvailableException;
 import com.example.demo.exception.quest.QuestNotFoundException;
 import com.example.demo.model.Quest;
 import com.example.demo.model.enums.Difficulty;
@@ -59,6 +61,10 @@ public class QuestService {
                 )
         );
 
+        if(!quest.isAvailable()){
+            throw new QuestNotAvailable(Constant.QUEST_NOT_AVAILABLE.getMessage());
+        }
+
         quest.applyUpdate(
                 updateQuestRequest.title(),
                 updateQuestRequest.description(),
@@ -72,9 +78,15 @@ public class QuestService {
 
     @Transactional
     public void delete(Integer id){
-        questRepository.findById(id).orElseThrow(
+        Quest quest = questRepository.findById(id).orElseThrow(
                 () -> new QuestNotFoundException(Constant.QUEST_NOT_FIND_IN_DB.getMessage())
         );
+
+        if(!quest.isAvailable()){
+            throw new QuestNotAvailable(Constant.QUEST_NOT_AVAILABLE.getMessage());
+        }
+
+        questRepository.delete(quest);
     }
 
     @Transactional

@@ -69,5 +69,4 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<ErrorResponse>(new ErrorResponse(e.getMessage(), HttpStatus.FORBIDDEN), HttpStatus.FORBIDDEN);
     }
 
-
 }

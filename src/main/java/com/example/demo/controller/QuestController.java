@@ -6,7 +6,6 @@ import com.example.demo.dto.quest.response.QuestResponse;
 import com.example.demo.model.Quest;
 import com.example.demo.model.enums.Difficulty;
 import com.example.demo.model.enums.Status;
-import com.example.demo.repository.QuestRepository;
 import com.example.demo.service.QuestService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +22,12 @@ public class QuestController {
     }
 
     @GetMapping("/quests")
-    public List<QuestResponse> findAll(@RequestParam(required = false) Status status, @RequestParam(required = false)Difficulty difficulty){
+    public List<QuestResponse> findAll(
+            @RequestParam(required = false) Status status,
+            @RequestParam(required = false)Difficulty difficulty)
+    {
         return questService.findAll(status, difficulty);
     }
-
-    // ________________________ fin des filtres ________________________
-
 
     @GetMapping("/quests/{id}")
     public QuestResponse findById(@PathVariable Integer id){
@@ -36,43 +35,22 @@ public class QuestController {
         return QuestResponse.from(quest);
     }
 
-
     // POST /api/quests création (statut AVAILABLE)
     @PostMapping("/quests")
     public QuestResponse create(@RequestBody CreateQuestRequest createQuestRequest){
         return questService.save(createQuestRequest);
     }
 
-    // TODO /api/quests/{id}/assignment
-    // Création d'un assignment. Mais il faut adventurer dans le corps du json request body ?
-    // Assigne un aventurier (corps : {"adventurerId": ... }), applique RG1 et RG2
-
-
-
-    // Modification interdite si status est IN_PROGRESS.
-    // TODO : modification interdite si IN_PROGRESS
     @PutMapping("quests/{id}")
     public QuestResponse update(@PathVariable Integer id,
                                 @Valid @RequestBody UpdateQuestRequest updateQuestRequest){
         return questService.update(id, updateQuestRequest);
     }
 
-    //DELETE /api/quests/{id} suppression (interdite si IN_PROGRESS)
-    // TODO : suppression interdite si IN_PROGRESS
     @DeleteMapping("quests/{id}")
     public void delete(@PathVariable Integer id){
         questService.delete(id);
     }
-
-    // POST /api/quests/{id}/assignment
-    // assigne un aventurier (corps : {"adventurerId": ... }), applique RG1 et RG2
-    // RG1, niveau requis.
-    // RG2, une quête à la fois.
-
-    // POST /api/quests/{id}/completion // Termine la quête, on applique RG3
-    // RG3, complétion et montée de niveau.
-    // Complétion et montée de niveau : terminer une quête crédite goldReward et xpReward à l'aventurier, passe la quête en COMPLETED
-    // et renseigne completedAt.
 
 }
 
