@@ -11,12 +11,15 @@ import com.example.demo.model.Quest;
 import com.example.demo.model.enums.Difficulty;
 import com.example.demo.model.enums.Status;
 import com.example.demo.repository.QuestRepository;
+import com.example.demo.repository.specification.QuestSpecification;
 import com.example.demo.util.RepositoryUtil;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestService {
@@ -28,26 +31,13 @@ public class QuestService {
         this.questRepository = questRepository;
     }
 
-
-
     @Transactional(readOnly = true)
     public List<QuestResponse> findAll(Status status, Difficulty difficulty) {
-        List<Quest> quests;
-        if(status == null && difficulty == null){
-            quests = questRepository.findAll();
-        } else if(status != null && difficulty == null) {
-            quests = questRepository.filterByStatus(status);
-        } else if (status == null && difficulty != null) {
-            quests = questRepository.filterByDifficulty(difficulty);
-        } else{
-            quests = questRepository.filterByStatusAndDifficulty(status, difficulty);
-        }
+        Specification<Quest> filters = QuestSpecification.hasStatus(status)
+                .and(QuestSpecification.hasDifficulty(difficulty));
 
-        List<QuestResponse> questResponses = new ArrayList<>();
-        for(Quest quest : quests){
-            questResponses.add(QuestResponse.from(quest));
-        }
-        return questResponses;
+        List<Quest> quests = questRepository.findAll(filters);
+        return quests.stream().map(QuestResponse::from).toList();
     }
 
     @Transactional(readOnly = true)

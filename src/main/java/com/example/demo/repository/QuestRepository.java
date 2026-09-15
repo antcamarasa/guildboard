@@ -4,15 +4,16 @@ import com.example.demo.model.Quest;
 import com.example.demo.model.enums.Difficulty;
 import com.example.demo.model.enums.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-// Ici l'interface JpaRepository porte toutes les méthodes du CRUD.
-public interface QuestRepository  extends JpaRepository<Quest, Integer>{
+public interface QuestRepository  extends JpaRepository<Quest, Integer>, JpaSpecificationExecutor<Quest> {
     boolean existsByTitle(String title);
 
+    // Deprecated
     @Query("SELECT q from Quest q WHERE q.status = :status")
     List<Quest> filterByStatus(@Param("status") Status status);
 
