@@ -9,7 +9,7 @@
 body {
   font-family: 'DM Sans', sans-serif;
   background-image: url('/mountain.png');
-  background-size: 100% auto;
+  background-size: cover;
   background-position: center;
   background-attachment: fixed;
   color: #111;

@@ -1,8 +1,10 @@
 export type AdventurerType = 'warrior' | 'mage' | 'ranger' | 'cleric';
 export Difficulty = 'easy' | 'medium' | 'hard' | 'epic';
 export type QuestStatus = 'available' | 'on_going' | 'completed';
+export type Difficulty = 'EASY' | 'MEDIUM' | 'HARD' | 'EPIC';
 
-//entité principale 
+//index.ts cest le fichier qui contient toutes les interfaces et types que je vais utiliser dans mon projet frontend. cest le dictionnaire pour typescript.
+
 
 export interface Adventurer {
     id: number;
@@ -22,7 +24,7 @@ export interface Quest {
     goldReward: number;
     xpReward: number;
 }
-export interface Assignement {
+export interface Assignment {
     id: number;
     adventurer: Adventurer;
     quest: Quest;

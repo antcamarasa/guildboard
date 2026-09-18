@@ -24,7 +24,7 @@ public class QuestService {
     }
 
     @Transactional(readOnly = true)
-    public Quest findById(Integer id){
+    public Quest findById(Long id){
         return questRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Quête introuvable avec l'id : " + id));// si je ne trouve pas la quête, je lance une exception
     }
@@ -36,7 +36,7 @@ public class QuestService {
     }
 
     @Transactional
-    public void delete(Integer id){
+    public void delete(long id){
          // 1. Est-ce que la quête existe ?
         Quest quest = questRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Quête introuvable avec l'id : " + id));
@@ -52,7 +52,7 @@ public class QuestService {
     }
 
     @Transactional
-    public Quest update(Integer id, Quest questModifiee){
+    public Quest update(long id, Quest questModifiee){
 
         // 1. Est-ce que la quête existe ?
         Quest questExistante = questRepository.findById(id)
