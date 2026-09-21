@@ -1,0 +1,110 @@
+.page {
+  padding: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: 'Grenze Gotisch', serif;
+  font-size: 2.2rem;
+  color: #f5e6c8;
+  margin: 0 0 2rem 0;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+/* ── Filtres ── */
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filterLabel {
+  font-size: 0.82rem;
+  color: #a89070;
+  font-weight: 600;
+  min-width: 70px;
+}
+
+.filterBtn {
+  padding: 0.3rem 0.9rem;
+  border-radius: 99px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(0,0,0,0.3);
+  color: #a89070;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filterBtn:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+.filterBtn.active { background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4); }
+
+.EASY   { color: #60c090; border-color: rgba(76,175,130,0.4); }
+.MEDIUM { color: #f0c050; border-color: rgba(245,200,66,0.4); }
+.HARD   { color: #e07050; border-color: rgba(224,90,43,0.4); }
+.EPIC   { color: #b090e8; border-color: rgba(155,121,224,0.4); }
+
+/* ── Tableau ── */
+.empty {
+  color: #a89070;
+  font-style: italic;
+  padding: 2rem;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(15,10,5,0.65);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(245,200,100,0.2);
+}
+
+.table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #a89070;
+  border-bottom: 1px solid rgba(245,200,100,0.15);
+}
+
+.table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: #e8d8c0;
+  font-size: 0.9rem;
+}
+
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: rgba(255,255,255,0.03); }
+
+.questTitle { font-weight: 600; }
+.questDesc  { font-size: 0.78rem; color: #8a7a6a; margin-top: 2px; }
+
+.center { text-align: center; }
+
+.badge, .statusBadge {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 99px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.AVAILABLE { background: rgba(76,175,130,0.15);  color: #60c090; }
+.ON_GOING  { background: rgba(245,200,66,0.15);  color: #f0c050; }
+.COMPLETED { background: rgba(160,160,160,0.15); color: #909090; }

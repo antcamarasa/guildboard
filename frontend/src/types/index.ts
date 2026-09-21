@@ -42,7 +42,7 @@ export interface UpdateAdventurerRequest {
   gold: number;
 }
 
-//erreur api 
+//erreur api
 
 export interface ApiError {
     status: number;
