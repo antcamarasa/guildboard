@@ -7,7 +7,7 @@
 .title {
   font-family: 'Grenze Gotisch', serif;
   font-size: 2.2rem;
-  color: #f5e6c8;
+  color: #fffffe;
   margin: 0 0 2rem 0;
   text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
@@ -29,7 +29,7 @@
 
 .filterLabel {
   font-size: 0.82rem;
-  color: #a89070;
+  color: #ffffff;
   font-weight: 600;
   min-width: 70px;
 }
@@ -39,7 +39,7 @@
   border-radius: 99px;
   border: 1px solid rgba(255,255,255,0.15);
   background: rgba(0,0,0,0.3);
-  color: #a89070;
+  color: #b27d38;
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
@@ -65,11 +65,12 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  background: rgba(15,10,5,0.65);
   backdrop-filter: blur(8px);
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid rgba(245,200,100,0.2);
+  background: #ffffff;
+  opacity: 1;
 }
 
 .table th {
@@ -85,7 +86,7 @@
 .table td {
   padding: 0.85rem 1rem;
   border-bottom: 1px solid rgba(255,255,255,0.05);
-  color: #e8d8c0;
+  color: #000000;
   font-size: 0.9rem;
 }
 
@@ -106,5 +107,31 @@
 }
 
 .AVAILABLE { background: rgba(76,175,130,0.15);  color: #60c090; }
-.ON_GOING  { background: rgba(245,200,66,0.15);  color: #f0c050; }
+.IN_PROGRESS { background: rgba(245,200,66,0.15);  color: #f0c050; }
 .COMPLETED { background: rgba(160,160,160,0.15); color: #909090; }
+
+.filterSelect {
+  padding: 0.35rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(245,200,100,0.3);
+  background: #ffffff;
+  color: #000000;
+  font-size: 0.85rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.filterSelect:focus {
+  border-color: rgba(245,200,100,0.6);
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 1rem 0.5rem;
+  }
+
+  .table {
+    display: block;
+    overflow-x: auto;
+  }
+}

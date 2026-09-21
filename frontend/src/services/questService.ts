@@ -1,6 +1,7 @@
 import type { Quest, ApiError } from '../types';
+// Service functions for interacting with the backend API related to quests
 
-const BASE_URL = 'http://localhost:8080/api';
+const BASE_URL = 'http://localhost:8080';
 
 export async function getAllQuests(): Promise<Quest[]> {
   const res = await fetch(`${BASE_URL}/quests`);

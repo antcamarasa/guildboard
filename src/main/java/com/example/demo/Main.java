@@ -10,3 +10,5 @@ public class Main {
         SpringApplication.run(Main.class, args);
     }
 }
+
+//spring boot va scanner tous les packages à partir de celui-ci, donc il va trouver tous les composants spring (controller, service, repository, etc.)
